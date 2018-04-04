@@ -1,4 +1,4 @@
-# Aufgabe Cows
+# Cows: Trace Table
 
 ## Code aus der Aufgabe
 
