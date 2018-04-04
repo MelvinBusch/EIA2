@@ -102,15 +102,15 @@ namespace Boxes {
 |7|`i` increment `3 < 5`|`3`|
 |8|`3 ≠ 2 => false`||||`170`|
 |9|`290 % 400`|||`290`|
-|10|switch `continue => deafult`||`"#0000ff"`|
+|10|switch `continue` `case` abbruch||`undefined`|
 |23|Schleife `50 > 0`|||||`50`|
-|24|Aufruf `placeDiv()`||`#0000ff`|`290`|`170`|`50`|
+|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`50`|
 |25|`false`||||||
 |23|Schleife `30 > 0` |||||`30`|
-|24|Aufruf `placeDiv()`||`#0000ff`|`290`|`170`|`30`|
+|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`30`|
 |25|`false`||||||
 |23|Schleife `10 > 0` |||||`10`|
-|24|Aufruf `placeDiv()`||`#0000ff`|`290`|`170`|`10`|
+|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`10`|
 |25|`false`||||||
 |23|Schleife `-10 !> 0` |||||`-10`|
 |--|--|--|--|--|--|--|
@@ -159,22 +159,34 @@ namespace Boxes {
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
 |--|--|--|--|--|--|--|
-|31|Parameter definieren|`#0000ff`|`290`|`170`|`50`|`50`|
+|31|Parameter definieren|`#0000ff`|`120`|`120`|`50`|`50`|
 |32|`div` Element erzeugen||||||
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
 |--|--|--|--|--|--|--|
-|31|Parameter definieren|`#0000ff`|`290`|`170`|`30`|`30`|
+|31|Parameter definieren|`#0000ff`|`120`|`120`|`30`|`30`|
 |32|`div` Element erzeugen||||||
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
 |--|--|--|--|--|--|--|
-|31|Parameter definieren|`#0000ff`|`290`|`170`|`10`|`10`|
+|31|Parameter definieren|`#0000ff`|`120`|`120`|`10`|`10`|
 |32|`div` Element erzeugen||||||
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
+|--|--|--|--|--|--|--|
+|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`50`|`50`|
+|--|--|--|--|--|--|--|
+|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`30`|`30`|
+|--|--|--|--|--|--|--|
+|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`10`|`10`|
 |--|--|--|--|--|--|--|
 |31|Parameter definieren|`#00ff00`|`220`|`60`|`50`|`50`|
 |32|`div` Element erzeugen||||||
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
+
+## Skizze
+
+
+
+## Webversion
