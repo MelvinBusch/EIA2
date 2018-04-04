@@ -186,7 +186,7 @@ namespace Boxes {
 |35|`div` Element Styles zuweisen||||||
 
 ## Skizze
-
+![Skizze der Aufgabe](https://melvinbusch.github.io/EIA2/Aufgabe01/skizze.jpg)
 
 
 ## Webversion
