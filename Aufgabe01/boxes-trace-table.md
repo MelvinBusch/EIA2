@@ -52,7 +52,7 @@ namespace Boxes {
 |Zeile|Kommentar|`i : number`|`c : string`|`x : number`|`y : number`|`a : number`|
 |--|--|--|--|--|--|--|
 |2|Variable `n = 5`|
-|4|Wertzuweisung||`0`|
+|4|Wertzuweisung||||`0`|
 |5|Wertzuweisung|||`0`|
 |7|Schleife `0 < 5`|`0`|
 |8|`0 ≠ 2 => false`||||`50`|
