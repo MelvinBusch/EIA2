@@ -102,17 +102,7 @@ namespace Boxes {
 |7|`i` increment `3 < 5`|`3`|
 |8|`3 ≠ 2 => false`||||`170`|
 |9|`290 % 400`|||`290`|
-|10|switch `continue` `case` abbruch||`undefined`|
-|23|Schleife `50 > 0`|||||`50`|
-|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`50`|
-|25|`false`||||||
-|23|Schleife `30 > 0` |||||`30`|
-|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`30`|
-|25|`false`||||||
-|23|Schleife `10 > 0` |||||`10`|
-|24|Aufruf `placeDiv()`||`undefined`|`290`|`170`|`10`|
-|25|`false`||||||
-|23|Schleife `-10 !> 0` |||||`-10`|
+|10|switch `continue` Schleifendurchgang wird übersprungen|||
 |--|--|--|--|--|--|--|
 |7|`i` increment `4 < 5`|`4`|
 |8|`4 ≠ 2 => false`||||`220`|
