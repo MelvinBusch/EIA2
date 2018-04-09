@@ -164,12 +164,6 @@ namespace Boxes {
 |33|Element zu `body` hinzufügen||||||
 |35|`div` Element Styles zuweisen||||||
 |--|--|--|--|--|--|--|
-|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`50`|`50`|
-|--|--|--|--|--|--|--|
-|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`30`|`30`|
-|--|--|--|--|--|--|--|
-|31|Parameter definieren => Fehler|`undefined`|`290`|`170`|`10`|`10`|
-|--|--|--|--|--|--|--|
 |31|Parameter definieren|`#00ff00`|`220`|`60`|`50`|`50`|
 |32|`div` Element erzeugen||||||
 |33|Element zu `body` hinzufügen||||||
