@@ -186,4 +186,4 @@ Funktionierende Browserversion:
 
 ## Aktivitätsdiagramm
 
-[Aktivitätsdiagramm](https://melvinbusch.github.io/EIA2/Aufgabe01/Boxes%20Aktivitätsdiagramm.pdf)
+[Aktivitätsdiagramm](https://melvinbusch.github.io/EIA2/Aufgabe01/Aktivitätsdiagramm%20Boxes.pdf)
