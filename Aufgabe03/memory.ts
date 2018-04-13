@@ -1,34 +1,32 @@
 namespace Memory {
-  //const playerCount: string = prompt("Anzahl der Spieler eingeben:", "2 - 4 Spieler");
-  const cardPairs: number = 3; //prompt("Anzahl der Kartenpaare", "2 - 6 Kartenpaare");
+
+  let words: string[] = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer"];
+  let players: number;
   let cards: HTMLElement[] = [];
-  let words: string[] = [];
+  let cardPairs: number;
 
-  class MemoryCard {
+  class Card {
 
-    id: number;
+    cardContent: string;
+    cardStatus: string;
+    card: HTMLElement;
 
-    constructor(id: number) {
-      this.id = id;
+    constructor(_cardContent: string, _cardStatus: string) {
+      this.cardContent = _cardContent;
+      this.cardStatus = _cardStatus;
     }
-    init() {
-      let card: HTMLElement = document.createElement("div");
 
-      cards.push(card);
+    createCard(): HTMLElement {
+      this.card = document.createElement("div");
+      this.card.innerText = this.cardContent;
+      return this.card;
     }
-    isTaken() { }
-    isHidden() { }
-    isOpen() { }
   }
 
-  for (let i: number = 0; i < cardPairs * 2; i++) {
-    let card: MemoryCard = new MemoryCard(i);
-    card.init();
+  function main(): void {
+    console.log("Hallo");
+    let card: Card = new Card("Haus", "hidden");
   }
 
-  console.log(cards);
-
-  function shuffleArray(): void {
-
-  }
+  document.addEventListener("DOMContentLoaded", main);
 }
