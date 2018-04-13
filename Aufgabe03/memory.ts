@@ -12,7 +12,6 @@ namespace Memory {
   //Variablen deklarieren
   let words: string[] = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
 
-  let players: HTMLElement[];
   let cards: HTMLElement[] = [];
 
   let numberCardPairs: number;
@@ -74,8 +73,6 @@ namespace Memory {
         <span class="player-name">${this.name}</span>
         <span class="player-score">Punkte: ${this.score}</span>`;
       gameInfo.appendChild(this.player);
-      //players.push(this.player);
-      //return players;
     }
   }
 

@@ -10,7 +10,6 @@ var Memory;
 (function (Memory) {
     //Variablen deklarieren
     var words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
-    var players;
     var cards = [];
     var numberCardPairs;
     var numberPlayers;
@@ -55,8 +54,6 @@ var Memory;
             this.player = document.createElement("div");
             this.player.innerHTML = "\n        <span class=\"player-name\">" + this.name + "</span>\n        <span class=\"player-score\">Punkte: " + this.score + "</span>";
             gameInfo.appendChild(this.player);
-            //players.push(this.player);
-            //return players;
         };
         return Player;
     }());
