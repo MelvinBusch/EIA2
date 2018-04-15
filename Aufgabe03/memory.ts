@@ -29,16 +29,7 @@ namespace Memory {
 
     constructor(_cardContent: string) {
       this.cardContent = _cardContent;
-
-      /* zufälliger Kartenstatus generieren */
-      let randomStatus: number = Math.random();
-      if (randomStatus <= .5) {
-        this.cardStatus = "hidden";
-      } else if (randomStatus > .5 && randomStatus <= .75) {
-        this.cardStatus = "taken";
-      } else if (randomStatus > .75) {
-        this.cardStatus = "visible";
-      }
+      this.cardStatus = randomStatus();
     }
 
     createCard(): HTMLElement[] {
@@ -73,6 +64,18 @@ namespace Memory {
         <span class="player-name">${this.name}</span>
         <span class="player-score">Punkte: ${this.score}</span>`;
       gameInfo.appendChild(this.player);
+    }
+  }
+
+  // Zufälliger Kartenstatus generieren
+  function randomStatus(): string {
+    let randomStatus: number = Math.random();
+    if (randomStatus <= .5) {
+      return "hidden";
+    } else if (randomStatus > .5 && randomStatus <= .75) {
+      return "taken";
+    } else if (randomStatus > .75) {
+      return "visible";
     }
   }
 

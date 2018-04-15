@@ -93,5 +93,13 @@ h2 {
   transform: rotateY(180deg);
 }
 .taken {
-  transform: scale(0);
+  background: #333;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  transform: rotateY(180deg);
+}
+.taken::after {
+  background: #333;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
