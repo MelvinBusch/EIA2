@@ -15,7 +15,7 @@ namespace Memory {
   let cards: HTMLElement[] = [];
 
   let numberCardPairs: number;
-  let numberPlayers: number;
+  let numberPlayers: number; 
 
   let gameInfo: HTMLElement;
   let gameBoard: HTMLElement;

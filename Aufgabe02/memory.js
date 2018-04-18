@@ -16,20 +16,10 @@ var Memory;
     var gameInfo;
     var gameBoard;
     // Klasse Karte
-    var Card = /** @class */ (function () {
+    var Card = (function () {
         function Card(_cardContent) {
             this.cardContent = _cardContent;
-            /* zufälliger Kartenstatus generieren */
-            var randomStatus = Math.random();
-            if (randomStatus <= .5) {
-                this.cardStatus = "hidden";
-            }
-            else if (randomStatus > .5 && randomStatus <= .75) {
-                this.cardStatus = "taken";
-            }
-            else if (randomStatus > .75) {
-                this.cardStatus = "visible";
-            }
+            this.cardStatus = randomStatus();
         }
         Card.prototype.createCard = function () {
             this.card = document.createElement("div");
@@ -41,7 +31,7 @@ var Memory;
         return Card;
     }());
     // Klasse Spieler
-    var Player = /** @class */ (function () {
+    var Player = (function () {
         function Player(_name) {
             this.name = _name;
             this.score = 0;
@@ -57,6 +47,19 @@ var Memory;
         };
         return Player;
     }());
+    // Zufälliger Kartenstatus generieren
+    function randomStatus() {
+        var randomStatus = Math.random();
+        if (randomStatus <= .5) {
+            return "hidden";
+        }
+        else if (randomStatus > .5 && randomStatus <= .75) {
+            return "taken";
+        }
+        else if (randomStatus > .75) {
+            return "visible";
+        }
+    }
     // Shuffle Array: Fisher-Yates Algorhitmus
     function shuffleArray(_array) {
         for (var i = _array.length - 1; i > 0; i--) {
@@ -99,3 +102,4 @@ var Memory;
     }
     document.addEventListener("DOMContentLoaded", main);
 })(Memory || (Memory = {}));
+//# sourceMappingURL=memory.js.map
