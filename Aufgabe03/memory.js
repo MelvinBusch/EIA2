@@ -2,7 +2,7 @@
 Aufgabe: Nr.3 DynHTML - Memory
 Name: Melvin Busch
 Matrikel: 257169
-Datum: 13.04.2018
+Datum: 18.04.2018
 
 Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert.
 */
@@ -11,54 +11,25 @@ var Memory;
     //Variablen deklarieren
     var words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
     var cards = [];
-    var numberCardPairs;
-    var numberPlayers;
+    var numberCardPairs = 8;
+    var numberPlayers = 4;
     var gameInfo;
     var gameBoard;
-    // Klasse Karte
-    var Card = (function () {
-        function Card(_cardContent) {
-            this.cardContent = _cardContent;
-            this.cardStatus = randomStatus();
+    // Karten erzeugen
+    function createCards(_cardContent) {
+        for (var i = 0; i < 2; i++) {
+            var card = document.createElement("div");
+            card.innerHTML = "<span>" + _cardContent + "</span>";
+            card.setAttribute("class", "card hidden");
+            cards.push(card);
         }
-        Card.prototype.createCard = function () {
-            this.card = document.createElement("div");
-            this.card.innerText = this.cardContent;
-            this.card.setAttribute("class", "card " + this.cardStatus);
-            cards.push(this.card);
-            return cards;
-        };
-        return Card;
-    }());
-    // Klasse Spieler
-    var Player = (function () {
-        function Player(_name) {
-            this.name = _name;
-            this.score = 0;
-        }
-        Player.prototype.scoreUp = function () {
-            this.score += 10;
-            return this.score;
-        };
-        Player.prototype.show = function () {
-            this.player = document.createElement("div");
-            this.player.innerHTML = "\n        <span class=\"player-name\">" + this.name + "</span>\n        <span class=\"player-score\">Punkte: " + this.score + "</span>";
-            gameInfo.appendChild(this.player);
-        };
-        return Player;
-    }());
-    // Zufälliger Kartenstatus generieren
-    function randomStatus() {
-        var randomStatus = Math.random();
-        if (randomStatus <= .5) {
-            return "hidden";
-        }
-        else if (randomStatus > .5 && randomStatus <= .75) {
-            return "taken";
-        }
-        else if (randomStatus > .75) {
-            return "visible";
-        }
+        return cards;
+    }
+    // Spieler erzeugen
+    function createPlayer(_name) {
+        var player = document.createElement("div");
+        player.innerHTML = "\n      <span class=\"player-name\">Spieler: " + _name + "</span>\n      <span class=\"player-score\">Punkte: 0</span>";
+        gameInfo.appendChild(player);
     }
     // Shuffle Array: Fisher-Yates Algorhitmus
     function shuffleArray(_array) {
@@ -69,6 +40,13 @@ var Memory;
         return _array;
         var _a;
     }
+    // Karte aufdecken
+    function showCard(_event) {
+        var target = _event.target;
+        if (target.classList.contains("hidden")) {
+            target.classList.remove("hidden");
+        }
+    }
     function main() {
         // Anzahl der Kartenpaare erfragen
         numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
@@ -77,16 +55,15 @@ var Memory;
         }
         // Anzahl der Spieler erfragen
         numberPlayers = parseInt(prompt("Bitte die Anzahl der Spieler eingeben", "nicht mehr als 4 Spieler"), 10);
-        numberPlayers > 4 ? numberPlayers = 4 : numberPlayers = numberPlayers;
+        if (numberPlayers < 0 || numberPlayers > 4) {
+            numberPlayers = 2;
+        }
         // DOM abhängige Variablen initialisieren
         gameInfo = document.getElementById("game-info");
         gameBoard = document.getElementById("card-container");
         // Karten erzeugen
         for (var i = 0; i < numberCardPairs; i++) {
-            var card = new Card(words[i]);
-            card.createCard();
-            var pair = new Card(words[i]);
-            pair.createCard();
+            createCards(words[i]);
         }
         // Karten mischen
         shuffleArray(cards);
@@ -96,10 +73,10 @@ var Memory;
         }
         // Spieler Anzeige generieren
         for (var i = 0; i < numberPlayers; i++) {
-            var player = new Player("Spieler " + (i + 1));
-            player.show();
+            createPlayer("" + (i + 1));
         }
+        // Spielmechanik
+        gameBoard.addEventListener("click", showCard);
     }
     document.addEventListener("DOMContentLoaded", main);
 })(Memory || (Memory = {}));
-//# sourceMappingURL=memory.js.map

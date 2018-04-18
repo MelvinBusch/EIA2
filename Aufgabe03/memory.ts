@@ -24,7 +24,7 @@ namespace Memory {
   function createCards(_cardContent): HTMLElement[] {
     for (let i: number = 0; i < 2; i++) {
       let card: HTMLElement = document.createElement("div");
-      card.innerText = _cardContent;
+      card.innerHTML = `<span>${_cardContent}</span>`;
       card.setAttribute("class", "card hidden");
       cards.push(card);
     }
@@ -49,7 +49,18 @@ namespace Memory {
     return _array;
   }
 
+  // Karte aufdecken
+  function showCard(_event: Event): void {
+    let target: HTMLElement = <HTMLElement>_event.target;
+    if (target.classList.contains("hidden")) {
+      target.classList.remove("hidden");
+    }
+  }
+
+
+
   function main(): void {
+
     // Anzahl der Kartenpaare erfragen
     numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
     if (numberCardPairs < 5 || numberCardPairs > 10) {
@@ -61,6 +72,7 @@ namespace Memory {
     if (numberPlayers < 0 || numberPlayers > 4) {
       numberPlayers = 2;
     }
+
 
     // DOM abhängige Variablen initialisieren
     gameInfo = document.getElementById("game-info");
@@ -83,6 +95,9 @@ namespace Memory {
     for (let i: number = 0; i < numberPlayers; i++) {
       createPlayer(`${i + 1}`);
     }
+
+    // Spielmechanik
+    gameBoard.addEventListener("click", showCard);
 
   }
   document.addEventListener("DOMContentLoaded", main);
