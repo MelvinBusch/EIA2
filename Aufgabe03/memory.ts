@@ -14,8 +14,8 @@ namespace Memory {
 
   let cards: HTMLElement[] = [];
 
-  let numberCardPairs: number = 8;
-  let numberPlayers: number = 4;
+  let numberCardPairs: number;
+  let numberPlayers: number;
 
   let gameInfo: HTMLElement;
   let gameBoard: HTMLElement;
@@ -53,16 +53,18 @@ namespace Memory {
 
   // Karte aufdecken
   function showCards(_event: Event): void {
-    numCardsOpen++;
-    if (!(numCardsOpen > 2)) {
-      let target: HTMLElement = <HTMLElement>_event.target;
-      if (target.classList.contains("hidden")) {
-        target.classList.remove("hidden");
-        target.classList.add("visible");
+    let target: HTMLElement = <HTMLElement>_event.target;
+    if (target.classList.contains("card")) {
+      numCardsOpen++;
+      if (!(numCardsOpen > 2)) {
+        if (target.classList.contains("hidden")) {
+          target.classList.remove("hidden");
+          target.classList.add("visible");
+        }
       }
-    }
-    if (numCardsOpen == 2) {
-      setTimeout(compareCards, 1500);
+      if (numCardsOpen == 2) {
+        setTimeout(compareCards, 1500);
+      }
     }
   }
 
@@ -96,7 +98,6 @@ namespace Memory {
     if (takenCards.length == 0) {
       alert("Gratulation! Du hast gewonnen");
     }
-    console.log(takenCards);
     takenCards = [];
   }
 

@@ -11,8 +11,8 @@ var Memory;
   //Variablen deklarieren
   var words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
   var cards = [];
-  var numberCardPairs = 8;
-  var numberPlayers = 4;
+  var numberCardPairs;
+  var numberPlayers;
   var gameInfo;
   var gameBoard;
   var numCardsOpen = 0;
@@ -43,16 +43,18 @@ var Memory;
   }
   // Karte aufdecken
   function showCards(_event) {
-    numCardsOpen++;
-    if (!(numCardsOpen > 2)) {
-      var target = _event.target;
-      if (target.classList.contains("hidden")) {
-        target.classList.remove("hidden");
-        target.classList.add("visible");
+    var target = _event.target;
+    if (target.classList.contains("card")) {
+      numCardsOpen++;
+      if (!(numCardsOpen > 2)) {
+        if (target.classList.contains("hidden")) {
+          target.classList.remove("hidden");
+          target.classList.add("visible");
+        }
       }
-    }
-    if (numCardsOpen == 2) {
-      setTimeout(compareCards, 1500);
+      if (numCardsOpen == 2) {
+        setTimeout(compareCards, 1500);
+      }
     }
   }
   // Cards Array filtern und neues Array zurückgeben
@@ -86,7 +88,6 @@ var Memory;
     if (takenCards.length == 0) {
       alert("Gratulation! Du hast gewonnen");
     }
-    console.log(takenCards);
     takenCards = [];
   }
 
@@ -123,4 +124,4 @@ var Memory;
   }
   document.addEventListener("DOMContentLoaded", main);
 })(Memory || (Memory = {}));
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=memory.js.map
