@@ -21,6 +21,7 @@ namespace Memory {
   let gameBoard: HTMLElement;
 
   let numCardsOpen: number = 0;
+  let openCards: HTMLElement[] = [];
 
   // Karten erzeugen
   function createCards(_cardContent: string): HTMLElement[] {
@@ -56,11 +57,12 @@ namespace Memory {
     let target: HTMLElement = <HTMLElement>_event.target;
     if (target.classList.contains("card")) {
       numCardsOpen++;
-      if (!(numCardsOpen > 2)) {
-        if (target.classList.contains("hidden")) {
-          target.classList.remove("hidden");
-          target.classList.add("visible");
-        }
+      if (!(numCardsOpen > 2) && target.classList.contains("hidden") && target != openCards[0]) {
+        target.classList.remove("hidden");
+        target.classList.add("visible");
+        openCards.push(target);
+      } else {
+        numCardsOpen--;
       }
       if (numCardsOpen == 2) {
         setTimeout(compareCards, 1500);
@@ -74,8 +76,8 @@ namespace Memory {
   }
 
   function compareCards(): void {
-    let openCards: HTMLElement[] = filterCardsBy("visible");
-    //console.log(openCards);
+    /* let openCards: HTMLElement[] = filterCardsBy("visible");
+    //console.log(openCards); */
 
     if (openCards[0].children[0].innerHTML == openCards[1].children[0].innerHTML) {
       for (let i = 0; i < openCards.length; i++) {
