@@ -104,7 +104,7 @@ namespace Memory {
   }
 
   function main(): void {
-
+    /*
     // Anzahl der Kartenpaare erfragen
     numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
     if (numberCardPairs < 5 || numberCardPairs > 10) {
@@ -116,6 +116,7 @@ namespace Memory {
     if (numberPlayers < 0 || numberPlayers > 4) {
       numberPlayers = 2;
     }
+    */
 
     // DOM abhängige Variablen initialisieren
     gameInfo = document.getElementById("game-info");

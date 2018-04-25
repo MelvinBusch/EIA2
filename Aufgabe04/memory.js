@@ -91,16 +91,19 @@ var Memory;
         takenCards = [];
     }
     function main() {
+        /*
         // Anzahl der Kartenpaare erfragen
         numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
         if (numberCardPairs < 5 || numberCardPairs > 10) {
-            numberCardPairs = 8;
+          numberCardPairs = 8;
         }
+    
         // Anzahl der Spieler erfragen
         numberPlayers = parseInt(prompt("Bitte die Anzahl der Spieler eingeben", "nicht mehr als 4 Spieler"), 10);
         if (numberPlayers < 0 || numberPlayers > 4) {
-            numberPlayers = 2;
+          numberPlayers = 2;
         }
+        */
         // DOM abhängige Variablen initialisieren
         gameInfo = document.getElementById("game-info");
         gameBoard = document.getElementById("card-container");
