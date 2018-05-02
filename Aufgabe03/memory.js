@@ -17,6 +17,7 @@ var Memory;
     var gameBoard;
     var numCardsOpen = 0;
     var openCards = [];
+    var allowed = true;
     // Karten erzeugen
     function createCards(_cardContent) {
         for (var i = 0; i < 2; i++) {
@@ -45,17 +46,15 @@ var Memory;
     // Karte aufdecken
     function showCards(_event) {
         var target = _event.target;
-        if (target.classList.contains("card")) {
-            numCardsOpen++;
-            if (!(numCardsOpen > 2) && target.classList.contains("hidden") && target != openCards[0]) {
+        if (target.classList.contains("hidden") && target.classList.contains("card") && allowed) {
+            if (numCardsOpen < 2 && target != openCards[0]) {
+                numCardsOpen++;
                 target.classList.remove("hidden");
                 target.classList.add("visible");
                 openCards.push(target);
             }
-            else {
-                numCardsOpen--;
-            }
             if (numCardsOpen == 2) {
+                allowed = false;
                 setTimeout(compareCards, 1500);
             }
         }
@@ -80,8 +79,9 @@ var Memory;
             }
         }
         checkVictory();
-        openCards = [];
         numCardsOpen = 0;
+        openCards = [];
+        allowed = true;
     }
     function checkVictory() {
         var takenCards = filterCardsBy("hidden");

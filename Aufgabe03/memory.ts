@@ -22,6 +22,7 @@ namespace Memory {
 
   let numCardsOpen: number = 0;
   let openCards: HTMLElement[] = [];
+  let allowed: boolean = true;
 
   // Karten erzeugen
   function createCards(_cardContent: string): HTMLElement[] {
@@ -55,16 +56,15 @@ namespace Memory {
   // Karte aufdecken
   function showCards(_event: Event): void {
     let target: HTMLElement = <HTMLElement>_event.target;
-    if (target.classList.contains("card")) {
-      numCardsOpen++;
-      if (!(numCardsOpen > 2) && target.classList.contains("hidden") && target != openCards[0]) {
+    if (target.classList.contains("hidden") && target.classList.contains("card") && allowed) {
+      if (numCardsOpen < 2 && target != openCards[0]) {
+        numCardsOpen++;
         target.classList.remove("hidden");
         target.classList.add("visible");
         openCards.push(target);
-      } else {
-        numCardsOpen--;
       }
       if (numCardsOpen == 2) {
+        allowed = false;
         setTimeout(compareCards, 1500);
       }
     }
@@ -78,7 +78,6 @@ namespace Memory {
   function compareCards(): void {
     /* let openCards: HTMLElement[] = filterCardsBy("visible");
     //console.log(openCards); */
-
     if (openCards[0].children[0].innerHTML == openCards[1].children[0].innerHTML) {
       for (let i = 0; i < openCards.length; i++) {
         openCards[i].classList.remove("visible");
@@ -91,8 +90,9 @@ namespace Memory {
       }
     }
     checkVictory();
-    openCards = [];
     numCardsOpen = 0;
+    openCards = [];
+    allowed = true;
   }
 
   function checkVictory(): void {
