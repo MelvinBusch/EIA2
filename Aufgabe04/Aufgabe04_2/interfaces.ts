@@ -1,7 +1,7 @@
 namespace Memory {
   
   // Interface Kartenset
-  export interface CardSet {
+  interface CardSet {
     name: string,
     minPairs: number,
     maxPairs: number,
@@ -9,7 +9,7 @@ namespace Memory {
     cardSize: {cardWidth: number, cardHeight: number}
   }
   
-  export interface CardSets {
+  interface CardSets {
     [name: string]: CardSet;
   }
   
@@ -37,4 +37,5 @@ namespace Memory {
       cardSize: {cardWidth: 200, cardHeight: 200}
     }
   }
+  
 }

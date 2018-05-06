@@ -158,30 +158,34 @@ namespace Memory {
 
       words = cardSets[select.value].words;
 
-      // Karten erzeugen
-      for (let i: number = 0; i < parseInt(slider.value); i++) {
-        createCards(words[i]);
-      }
-
-      // Karten mischen
-      shuffleArray(cards);
-
-      // Karten anzeigen
-      for (let i: number = 0; i < cards.length; i++) {
-        gameBoard.appendChild(cards[i]);
-      }
-
       // Spieler Anzeige generieren
       if (playerInputs[0].value != "") {
+        
         for (let i: number = 0; i < playerInputs.length; i++) {
           if (playerInputs[i].value != "") {
             createPlayer(playerInputs[i].value);
           }
         }
+
+        // Karten erzeugen
+        for (let i: number = 0; i < parseInt(slider.value); i++) {
+          createCards(words[i]);
+        }
+
+        // Karten mischen
+        shuffleArray(cards);
+
+        // Karten anzeigen
+        for (let i: number = 0; i < cards.length; i++) {
+          gameBoard.appendChild(cards[i]);
+        }
+        
         gameInit.style.display = "none";
+        
       } else {
         alert("Bitte mindestens einen Spieler angeben!");
       }
+
     });
 
     // Spielmechanik
