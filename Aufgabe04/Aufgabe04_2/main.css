@@ -61,11 +61,11 @@ h3 {
   box-sizing: border-box;
   z-index: 5;
 }
-#game-init form {
+#game-init #game-form {
   height: auto; 
   width: 100%;
 }
-#game-init form .cols {
+#game-init #game-form .cols {
   display: flex;
   justify-content: space-between;
 }
@@ -75,6 +75,12 @@ h3 {
   padding: 20px;
   text-align: center;
 }
+.cols span {
+  margin-top: 20px;
+  font-size: 24px;
+  display: block;
+  cursor: pointer;
+}
 input {
   font-family: 'Roboto Mono', monospace;
   font-size: 18px;
@@ -83,11 +89,12 @@ input[type=text] {
   border: none;
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
   padding: 5px;
+  margin-bottom: 25px;
 }
 input[type=text]:focus {
   outline: none;
 }
-input[type=submit] {
+#submit {
   height: 50px;
   width: 200px;
   position: absolute;
@@ -99,13 +106,84 @@ input[type=submit] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: center;
+  line-height: 50px;
 }
-input[type=submit]:hover {
+#submit:hover {
   box-shadow: 0px 0px 0px 0px rgb(137, 88, 15);
   transform: translate(-50%, 4px);
 }
-
-
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 2px solid black;
+  border-radius: 0px;
+  width: 200px;
+  height: 40px;
+  padding-left: 20px;
+  margin: 20px 0px 50px 0px;
+  /*padding: 10px 20px;*/
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+.select {
+  position: relative;
+}
+.select::after {
+  content: "\0025BE";
+  position: absolute;
+  top: 27px;
+  left: 70%;
+  pointer-events: none;
+}
+select:focus {
+  outline: none;
+}
+input[type=range] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 200px;
+  height: 2px;
+  background: black;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 2px solid black;
+  height: 36px;
+  width: 16px;
+  background: white;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  border: 2px solid black;
+  height: 36px;
+  width: 16px;
+  background: white;
+  border-radius: 0px;
+  cursor: pointer;
+}
+input[type=range]::after {
+  content: attr(max);
+  position: relative;
+  top: 10px;
+  margin-left: 10px;
+}
+input[type=range]::before {
+  content: attr(min);
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+}
 
 /* Spielbrett */
 #game-board {

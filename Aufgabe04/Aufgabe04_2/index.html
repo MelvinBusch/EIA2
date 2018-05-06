@@ -4,31 +4,36 @@
 <meta charset="utf-8">
 <title>Memory</title>
 <script src="memory.js"></script>
+<script src="interfaces.js"></script>
 <link rel="stylesheet" href="main.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 </head>
 <body>
   <section id="game-init">
     <h2>Spiel erstellen</h2>
-    <form>
+    <div id="game-form">
       <div class="cols">
         <div class="col">
           <h3>Spielernamen eingeben:</h3>
-          <input type="text" placeholder="Spieler 1">
-          <!-- <div id="createPlayerInput">+</div> -->
+          <div id="players">
+            <input type="text" placeholder="Spielername">
+          </div>
+          <span id="addPlayerInput">+</span>
         </div>
         <div class="col">
-          <select name="Select" id="select">
-            <option value="animals">Tiere</option>
-            <option value="flowers" selected>Blumen</option>
-            <option value="trees">Bäume</option>
-          </select>
+          <div class="select">
+            <select name="Select" id="select">
+              <option value="animals">Tiere</option>
+              <option value="nature" selected>Natur</option>
+              <option value="coding">Coding</option>
+            </select>
+          </div>
           <div id="card-description"></div>
-          <input type="range" name="Slider" min="5" max="10" step="1" value="8">
+          <input type="range" name="Slider" min="4" max="7" step="1">
         </div>
       </div>
-      <input type="submit" value="Spiel Starten!">
-    </form>
+      <button id="submit">Spiel Starten!</button>
+    </div>
   </section>
 
   <section id="game-info">

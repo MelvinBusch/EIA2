@@ -10,18 +10,24 @@ Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde n
 namespace Memory {
 
   //Variablen deklarieren
-  let words: string[] = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
+  let words: string[] = [];
 
   let cards: HTMLElement[] = [];
 
   let numberCardPairs: number;
-  let numberPlayers: number;
+  let numberPlayers: number = 0;
 
   let gameInfo: HTMLElement;
   let gameBoard: HTMLElement;
 
   let numCardsOpen: number = 0;
   let openCards: HTMLElement[] = [];
+  let allowed: boolean = true;
+
+  let playerInputContainer: HTMLElement;
+  let playerInputs: NodeListOf<HTMLInputElement>;
+  let slider: HTMLInputElement;
+  let select: HTMLSelectElement;
 
   // Karten erzeugen
   function createCards(_cardContent: string): HTMLElement[] {
@@ -55,16 +61,15 @@ namespace Memory {
   // Karte aufdecken
   function showCards(_event: Event): void {
     let target: HTMLElement = <HTMLElement>_event.target;
-    if (target.classList.contains("card")) {
-      numCardsOpen++;
-      if (!(numCardsOpen > 2) && target.classList.contains("hidden") && target != openCards[0]) {
+    if (target.classList.contains("hidden") && target.classList.contains("card") && allowed) {
+      if (numCardsOpen < 2 && target != openCards[0]) {
+        numCardsOpen++;
         target.classList.remove("hidden");
         target.classList.add("visible");
         openCards.push(target);
-      } else {
-        numCardsOpen--;
       }
       if (numCardsOpen == 2) {
+        allowed = false;
         setTimeout(compareCards, 1500);
       }
     }
@@ -78,7 +83,6 @@ namespace Memory {
   function compareCards(): void {
     /* let openCards: HTMLElement[] = filterCardsBy("visible");
     //console.log(openCards); */
-
     if (openCards[0].children[0].innerHTML == openCards[1].children[0].innerHTML) {
       for (let i = 0; i < openCards.length; i++) {
         openCards[i].classList.remove("visible");
@@ -91,8 +95,9 @@ namespace Memory {
       }
     }
     checkVictory();
-    openCards = [];
     numCardsOpen = 0;
+    openCards = [];
+    allowed = true;
   }
 
   function checkVictory(): void {
@@ -103,42 +108,81 @@ namespace Memory {
     takenCards = [];
   }
 
-  function main(): void {
-    /*
-    // Anzahl der Kartenpaare erfragen
-    numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
-    if (numberCardPairs < 5 || numberCardPairs > 10) {
-      numberCardPairs = 8;
-    }
+  // dynamische Eingabefelder erzeugen
+  function addPlayerInput(event: Event): void {
+    if (numberPlayers < 4) {
 
-    // Anzahl der Spieler erfragen
-    numberPlayers = parseInt(prompt("Bitte die Anzahl der Spieler eingeben", "nicht mehr als 4 Spieler"), 10);
-    if (numberPlayers < 0 || numberPlayers > 4) {
-      numberPlayers = 2;
+      let input = document.createElement("input");
+      input.setAttribute("type", "text");
+      input.setAttribute("placeholder", "Spielername");
+      playerInputContainer.appendChild(input);
+
+      numberPlayers++;
+    } else {
+      alert("Maximale Anzahl an Spielern erreicht!");
     }
-    */
+    console.log(playerInputs);
+  }
+
+  // min & max Werte des Sliders aktualisieren
+  function updateSlider(event: Event): void {
+    slider.attributes[2].value = cardSets[select.value].minPairs.toString();
+    slider.attributes[3].value = cardSets[select.value].maxPairs.toString();
+  }
+
+  function main(): void {
 
     // DOM abhängige Variablen initialisieren
     gameInfo = document.getElementById("game-info");
     gameBoard = document.getElementById("card-container");
 
-    // Karten erzeugen
-    for (let i: number = 0; i < numberCardPairs; i++) {
-      createCards(words[i]);
-    }
+    let gameInit: HTMLElement = document.getElementById("game-init");
+    let gameFormSubmit: HTMLElement = document.getElementById("submit");
 
-    // Karten mischen
-    shuffleArray(cards);
+    let inputs: NodeListOf<HTMLInputElement> = document.getElementsByTagName("input");
 
-    // Karten anzeigen
-    for (let i: number = 0; i < cards.length; i++) {
-      gameBoard.appendChild(cards[i]);
-    }
+    // dynamisches HTML Formular
+    let addPlayerButton: HTMLElement = document.getElementById("addPlayerInput");
+    playerInputContainer = document.getElementById("players");
+    slider = <HTMLInputElement>document.querySelector("input[type=range]");
+    select = document.getElementsByTagName("select")[0];
+    playerInputs = playerInputContainer.getElementsByTagName("input");
 
-    // Spieler Anzeige generieren
-    for (let i: number = 0; i < numberPlayers; i++) {
-      createPlayer(`${i + 1}`);
-    }
+    addPlayerButton.addEventListener("click", addPlayerInput);
+    select.addEventListener("change", updateSlider)
+
+
+
+    // Spiel generieren
+    gameFormSubmit.addEventListener("click", function() {
+
+      words = cardSets[select.value].words;
+
+      // Karten erzeugen
+      for (let i: number = 0; i < parseInt(slider.value); i++) {
+        createCards(words[i]);
+      }
+
+      // Karten mischen
+      shuffleArray(cards);
+
+      // Karten anzeigen
+      for (let i: number = 0; i < cards.length; i++) {
+        gameBoard.appendChild(cards[i]);
+      }
+
+      // Spieler Anzeige generieren
+      if (playerInputs[0].value != "") {
+        for (let i: number = 0; i < playerInputs.length; i++) {
+          if (playerInputs[i].value != "") {
+            createPlayer(playerInputs[i].value);
+          }
+        }
+        gameInit.style.display = "none";
+      } else {
+        alert("Bitte mindestens einen Spieler angeben!");
+      }
+    });
 
     // Spielmechanik
     gameBoard.addEventListener("click", showCards);

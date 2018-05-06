@@ -9,14 +9,19 @@ Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde n
 var Memory;
 (function (Memory) {
     //Variablen deklarieren
-    var words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
+    var words = [];
     var cards = [];
     var numberCardPairs;
-    var numberPlayers;
+    var numberPlayers = 0;
     var gameInfo;
     var gameBoard;
     var numCardsOpen = 0;
     var openCards = [];
+    var allowed = true;
+    var playerInputContainer;
+    var playerInputs;
+    var slider;
+    var select;
     // Karten erzeugen
     function createCards(_cardContent) {
         for (var i = 0; i < 2; i++) {
@@ -45,17 +50,15 @@ var Memory;
     // Karte aufdecken
     function showCards(_event) {
         var target = _event.target;
-        if (target.classList.contains("card")) {
-            numCardsOpen++;
-            if (!(numCardsOpen > 2) && target.classList.contains("hidden") && target != openCards[0]) {
+        if (target.classList.contains("hidden") && target.classList.contains("card") && allowed) {
+            if (numCardsOpen < 2 && target != openCards[0]) {
+                numCardsOpen++;
                 target.classList.remove("hidden");
                 target.classList.add("visible");
                 openCards.push(target);
             }
-            else {
-                numCardsOpen--;
-            }
             if (numCardsOpen == 2) {
+                allowed = false;
                 setTimeout(compareCards, 1500);
             }
         }
@@ -80,8 +83,9 @@ var Memory;
             }
         }
         checkVictory();
-        openCards = [];
         numCardsOpen = 0;
+        openCards = [];
+        allowed = true;
     }
     function checkVictory() {
         var takenCards = filterCardsBy("hidden");
@@ -90,37 +94,66 @@ var Memory;
         }
         takenCards = [];
     }
+    // dynamische Eingabefelder erzeugen
+    function addPlayerInput(event) {
+        if (numberPlayers < 4) {
+            var input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("placeholder", "Spielername");
+            playerInputContainer.appendChild(input);
+            numberPlayers++;
+        }
+        else {
+            alert("Maximale Anzahl an Spielern erreicht!");
+        }
+        console.log(playerInputs);
+    }
+    // min & max Werte des Sliders aktualisieren
+    function updateSlider(event) {
+        slider.attributes[2].value = Memory.cardSets[select.value].minPairs.toString();
+        slider.attributes[3].value = Memory.cardSets[select.value].maxPairs.toString();
+    }
     function main() {
-        /*
-        // Anzahl der Kartenpaare erfragen
-        numberCardPairs = parseInt(prompt("Bitte die Anzahl der Kartenpaare eingeben", "5 - 10 Kartenpaare"), 10);
-        if (numberCardPairs < 5 || numberCardPairs > 10) {
-          numberCardPairs = 8;
-        }
-    
-        // Anzahl der Spieler erfragen
-        numberPlayers = parseInt(prompt("Bitte die Anzahl der Spieler eingeben", "nicht mehr als 4 Spieler"), 10);
-        if (numberPlayers < 0 || numberPlayers > 4) {
-          numberPlayers = 2;
-        }
-        */
         // DOM abhängige Variablen initialisieren
         gameInfo = document.getElementById("game-info");
         gameBoard = document.getElementById("card-container");
-        // Karten erzeugen
-        for (var i = 0; i < numberCardPairs; i++) {
-            createCards(words[i]);
-        }
-        // Karten mischen
-        shuffleArray(cards);
-        // Karten anzeigen
-        for (var i = 0; i < cards.length; i++) {
-            gameBoard.appendChild(cards[i]);
-        }
-        // Spieler Anzeige generieren
-        for (var i = 0; i < numberPlayers; i++) {
-            createPlayer("" + (i + 1));
-        }
+        var gameInit = document.getElementById("game-init");
+        var gameFormSubmit = document.getElementById("submit");
+        var inputs = document.getElementsByTagName("input");
+        // dynamisches HTML Formular
+        var addPlayerButton = document.getElementById("addPlayerInput");
+        playerInputContainer = document.getElementById("players");
+        slider = document.querySelector("input[type=range]");
+        select = document.getElementsByTagName("select")[0];
+        playerInputs = playerInputContainer.getElementsByTagName("input");
+        addPlayerButton.addEventListener("click", addPlayerInput);
+        select.addEventListener("change", updateSlider);
+        // Spiel generieren
+        gameFormSubmit.addEventListener("click", function () {
+            words = Memory.cardSets[select.value].words;
+            // Karten erzeugen
+            for (var i = 0; i < parseInt(slider.value); i++) {
+                createCards(words[i]);
+            }
+            // Karten mischen
+            shuffleArray(cards);
+            // Karten anzeigen
+            for (var i = 0; i < cards.length; i++) {
+                gameBoard.appendChild(cards[i]);
+            }
+            // Spieler Anzeige generieren
+            if (playerInputs[0].value != "") {
+                for (var i = 0; i < playerInputs.length; i++) {
+                    if (playerInputs[i].value != "") {
+                        createPlayer(playerInputs[i].value);
+                    }
+                }
+                gameInit.style.display = "none";
+            }
+            else {
+                alert("Bitte mindestens einen Spieler angeben!");
+            }
+        });
         // Spielmechanik
         gameBoard.addEventListener("click", showCards);
     }
