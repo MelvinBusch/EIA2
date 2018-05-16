@@ -9,20 +9,20 @@ Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde n
 var Memory;
 (function (Memory) {
     //Variablen deklarieren
-    var words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
-    var cards = [];
-    var numberCardPairs;
-    var numberPlayers;
-    var gameInfo;
-    var gameBoard;
-    var numCardsOpen = 0;
-    var openCards = [];
-    var allowed = true;
+    let words = ["Haus", "Baum", "Wolke", "Blume", "Hase", "Regenbogen", "Zwerg", "Sommer", "Katze", "Kekse"];
+    let cards = [];
+    let numberCardPairs;
+    let numberPlayers;
+    let gameInfo;
+    let gameBoard;
+    let numCardsOpen = 0;
+    let openCards = [];
+    let allowed = true;
     // Karten erzeugen
     function createCards(_cardContent) {
-        for (var i = 0; i < 2; i++) {
-            var card = document.createElement("div");
-            card.innerHTML = "<span>" + _cardContent + "</span>";
+        for (let i = 0; i < 2; i++) {
+            let card = document.createElement("div");
+            card.innerHTML = `<span>${_cardContent}</span>`;
             card.setAttribute("class", "card hidden");
             cards.push(card);
         }
@@ -30,22 +30,23 @@ var Memory;
     }
     // Spieler erzeugen
     function createPlayer(_name) {
-        var player = document.createElement("div");
-        player.innerHTML = "\n      <span class=\"player-name\">Spieler: " + _name + "</span>\n      <span class=\"player-score\">Punkte: 0</span>";
+        let player = document.createElement("div");
+        player.innerHTML = `
+      <span class="player-name">Spieler: ${_name}</span>
+      <span class="player-score">Punkte: 0</span>`;
         gameInfo.appendChild(player);
     }
     // Shuffle Array: Fisher-Yates Algorhitmus
     function shuffleArray(_array) {
-        for (var i = _array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            _a = [_array[j], _array[i]], _array[i] = _a[0], _array[j] = _a[1];
+        for (let i = _array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [_array[i], _array[j]] = [_array[j], _array[i]];
         }
         return _array;
-        var _a;
     }
     // Karte aufdecken
     function showCards(_event) {
-        var target = _event.target;
+        let target = _event.target;
         if (target.classList.contains("hidden") && target.classList.contains("card") && allowed) {
             if (numCardsOpen < 2 && target != openCards[0]) {
                 numCardsOpen++;
@@ -61,19 +62,19 @@ var Memory;
     }
     // Cards Array filtern und neues Array zurückgeben
     function filterCardsBy(_filter) {
-        return cards.filter(function (card) { return card.classList.contains(_filter); });
+        return cards.filter(card => card.classList.contains(_filter));
     }
     function compareCards() {
         /* let openCards: HTMLElement[] = filterCardsBy("visible");
         //console.log(openCards); */
         if (openCards[0].children[0].innerHTML == openCards[1].children[0].innerHTML) {
-            for (var i = 0; i < openCards.length; i++) {
+            for (let i = 0; i < openCards.length; i++) {
                 openCards[i].classList.remove("visible");
                 openCards[i].classList.add("taken");
             }
         }
         else {
-            for (var i = 0; i < openCards.length; i++) {
+            for (let i = 0; i < openCards.length; i++) {
                 openCards[i].classList.remove("visible");
                 openCards[i].classList.add("hidden");
             }
@@ -84,7 +85,7 @@ var Memory;
         allowed = true;
     }
     function checkVictory() {
-        var takenCards = filterCardsBy("hidden");
+        let takenCards = filterCardsBy("hidden");
         if (takenCards.length == 0) {
             alert("Gratulation! Du hast gewonnen");
         }
@@ -105,18 +106,18 @@ var Memory;
         gameInfo = document.getElementById("game-info");
         gameBoard = document.getElementById("card-container");
         // Karten erzeugen
-        for (var i = 0; i < numberCardPairs; i++) {
+        for (let i = 0; i < numberCardPairs; i++) {
             createCards(words[i]);
         }
         // Karten mischen
         shuffleArray(cards);
         // Karten anzeigen
-        for (var i = 0; i < cards.length; i++) {
+        for (let i = 0; i < cards.length; i++) {
             gameBoard.appendChild(cards[i]);
         }
         // Spieler Anzeige generieren
-        for (var i = 0; i < numberPlayers; i++) {
-            createPlayer("" + (i + 1));
+        for (let i = 0; i < numberPlayers; i++) {
+            createPlayer(`${i + 1}`);
         }
         // Spielmechanik
         gameBoard.addEventListener("click", showCards);
