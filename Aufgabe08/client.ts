@@ -31,9 +31,6 @@ namespace Client {
       name: inputs[0].value,
       firstname: inputs[1].value,
       matrikel: parseInt(matrikel),
-      age: parseInt(inputs[3].value),
-      gender: genderButton.checked,
-      course: inputs[6].value
     });
 
     let xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -62,9 +59,6 @@ namespace Client {
           answer += `Matrikel: ${studi}\n`;
           answer += `Lastname: ${studis[studi].name}\n`;
           answer += `Firstname: ${studis[studi].firstname}\n`;
-          answer += `Age: ${studis[studi].age}\n`;
-          answer += `Gender: ${studis[studi] ? "male" : "female"}\n`;
-          answer += `Course: ${studis[studi].course}\n\n`;
         }
 
         refreshArea.innerText = answer;
