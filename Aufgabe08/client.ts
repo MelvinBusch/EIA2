@@ -1,7 +1,7 @@
 namespace Client {
 
-  // const adress: string = "https://eia-melvin.herokuapp.com/";
-  const adress: string = "http://localhost:8100";
+  const adress: string = "https://eia-melvin.herokuapp.com/";
+  // const adress: string = "http://localhost:8100";
 
   let inputs: NodeListOf<HTMLInputElement>;
   let searchResult: HTMLElement;

@@ -1,7 +1,7 @@
 var Client;
 (function (Client) {
-    // const adress: string = "https://eia-melvin.herokuapp.com/";
-    const adress = "http://localhost:8100";
+    const adress = "https://eia-melvin.herokuapp.com/";
+    // const adress: string = "http://localhost:8100";
     let inputs;
     let searchResult;
     let refreshArea;
