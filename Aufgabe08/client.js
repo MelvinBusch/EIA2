@@ -1,7 +1,7 @@
 var Client;
 (function (Client) {
-    const adress = "https://eia-melvin.herokuapp.com/";
-    // const adress: string = "https://localhost:8100/";
+    // const adress: string = "https://eia-melvin.herokuapp.com/";
+    const adress = "http://localhost:8100";
     let inputs;
     let searchResult;
     let refreshArea;
@@ -18,12 +18,10 @@ var Client;
     }
     // Insert Studi
     function insert() {
-        let genderButton = document.getElementById("male");
-        let matrikel = inputs[2].value;
         let json = JSON.stringify({
             name: inputs[0].value,
             firstname: inputs[1].value,
-            matrikel: parseInt(matrikel),
+            matrikel: parseInt(inputs[2].value),
         });
         let xhr = new XMLHttpRequest();
         xhr.open("GET", adress + "?action=insert&json=" + json, true);
@@ -43,9 +41,10 @@ var Client;
                 let studis = JSON.parse(xhr.responseText.toString());
                 let answer = "";
                 for (let studi in studis) {
-                    answer += `Matrikel: ${studi}\n`;
+                    answer += `Matrikel: ${studis[studi].matrikel}\n`;
                     answer += `Lastname: ${studis[studi].name}\n`;
                     answer += `Firstname: ${studis[studi].firstname}\n`;
+                    answer += "\n";
                 }
                 refreshArea.innerText = answer;
             }
@@ -53,8 +52,8 @@ var Client;
     }
     // Search Studi
     function search() {
-        let searchKey = inputs[7].value;
-        if (searchKey != "") {
+        let searchKey = inputs[3].value;
+        if (searchKey !== "") {
             let xhr = new XMLHttpRequest();
             xhr.open("GET", adress + "?action=search&matrikel=" + searchKey, true);
             xhr.send();
