@@ -135,9 +135,9 @@ namespace Seaworld {
     ctx.moveTo(_x, _y);
     ctx.bezierCurveTo(_x - 20, _y - 20, _x - 20, _y + 20, _x, _y);
 
-    ctx.lineTo(_x + 10, _y - 5);
-    ctx.lineTo(_x + 10, _y + 5);
-    ctx.lineTo(_x, _y - 5);
+    ctx.lineTo(_x + 5, _y - 5);
+    ctx.lineTo(_x + 5, _y + 5);
+    ctx.lineTo(_x, _y);
 
     ctx.fillStyle = "blue";
     ctx.fill();
