@@ -30,6 +30,10 @@ namespace L11_Inheritance {
     let zufall: number = Math.random();
     let object: any;
     
+    let mouseEvent: MouseEvent = <MouseEvent>_event;
+    
+    console.log(_event);
+    
     if (zufall < .33) {
       object = new DavidStar("#ffff00");
     } else if (zufall >= .33 && zufall < .66) {
@@ -37,6 +41,9 @@ namespace L11_Inheritance {
     } else {
       object = new Circle("#ffff00");
     }
+    
+    object.x = mouseEvent.x;
+    object.y = mouseEvent.y;
 
     stars.push(object);
   }

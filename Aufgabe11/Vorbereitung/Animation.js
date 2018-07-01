@@ -21,6 +21,8 @@ var L11_Inheritance;
     function insertNewObject(_event) {
         let zufall = Math.random();
         let object;
+        let mouseEvent = _event;
+        console.log(_event);
         if (zufall < .33) {
             object = new L11_Inheritance.DavidStar("#ffff00");
         }
@@ -30,6 +32,8 @@ var L11_Inheritance;
         else {
             object = new L11_Inheritance.Circle("#ffff00");
         }
+        object.x = mouseEvent.x;
+        object.y = mouseEvent.y;
         stars.push(object);
     }
     function animate() {

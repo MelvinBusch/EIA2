@@ -4,7 +4,6 @@ namespace L11_Inheritance {
 
     constructor(_color) {
       super(_color);
-      this.setRandomPosition();
     }
 
     move(): void {
